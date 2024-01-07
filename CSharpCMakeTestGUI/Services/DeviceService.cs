@@ -8,7 +8,7 @@ using System.Windows;
 
 namespace CSharpCMakeTestGUI.Services
 {
-    internal class ThreadSafeDeviceService : DeviceServiceCLR.ServiceCLR, DeviceServiceInterface.IService
+    internal class DeviceService : DeviceServiceCLR.ServiceCLR, DeviceServiceInterface.IService
     {
         public event DeviceChangeEvent DeviceUpdatedSignal = null!;
         public event MessageEvent ErrorSignal = null!;

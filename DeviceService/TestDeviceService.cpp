@@ -34,9 +34,7 @@ int main(int argc, char** argv)
     TestService manager;
     manager.AddDevice(std::make_unique<Type1Device>("Device1"));
     manager.AddDevice(std::make_unique<Type2Device>("Device2"));
-    std::cout << "Start\n";
     manager.Start();
     std::this_thread::sleep_for(5s);
     manager.Stop();
-    std::cout << "Stop\n";
 }

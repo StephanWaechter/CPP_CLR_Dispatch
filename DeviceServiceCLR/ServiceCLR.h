@@ -23,7 +23,7 @@ namespace DeviceServiceCLR
 		gcroot<ServiceCLR^> m_managed;
 	};
 
-	public ref class ServiceCLR abstract : public DeviceServiceInterface::IDeviceServiceWrapper
+	public ref class ServiceCLR abstract
 	{
 	public:
 		ServiceCLR();

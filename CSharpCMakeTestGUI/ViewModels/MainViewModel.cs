@@ -57,7 +57,7 @@ namespace CSharpCMakeTestGUI.ViewModels
 
         public IRelayCommand StartCommand { get; }
         private void OnStartCommand()
-        {
+        {  
             Service.Start();
         }
 
@@ -75,9 +75,5 @@ namespace CSharpCMakeTestGUI.ViewModels
         {
             Message.Add(device.Name);
         }
-
-
-
-
     }
 }
