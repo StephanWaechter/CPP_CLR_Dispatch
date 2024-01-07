@@ -16,14 +16,10 @@ namespace CSharpCMakeTestGUI
     {
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            var device_servie = new DeviceServiceInterface.ThreadSafeService(
-                (Action action) => Current.Dispatcher.BeginInvoke(action, null),
-                new DeviceServiceCLR.ServiceCLR()
-            );
-
+            var device_service = new Services.ThreadSafeDeviceService();
             var window = new MainWindow
             {
-                DataContext = new ViewModels.MainViewModel(device_servie)
+                DataContext = new ViewModels.MainViewModel(device_service)
             };
             window.Show();
         }

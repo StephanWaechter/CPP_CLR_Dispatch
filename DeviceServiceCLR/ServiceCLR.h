@@ -1,102 +1,46 @@
 #pragma once
 #include "DeviceService/Service.h"
+#include "Devices/Type1Device.h"
+#include "Devices/Type2Device.h"
 #include <string>
 #include <vcclr.h>
 
 namespace DeviceServiceCLR
 {
-	using namespace System;
-	using namespace DeviceServiceInterface;
-	using namespace System::Windows;
-
-	static String^ MarshelString(std::string const& native)
+	ref class ServiceCLR;
+	class NativeServiceWrapper : public DeviceService::Service
 	{
-		return System::Runtime::InteropServices::Marshal::PtrToStringAnsi((IntPtr)(char*)native.c_str());
-	}
+	public:
+		NativeServiceWrapper(ServiceCLR^ managed);
 
-	static Device^ MarshelDevice(Devices::IDevice const& device)
-	{
-		Device^ managed = gcnew Device();
-		managed->Name = MarshelString(device.Name().c_str());
-		return managed;
-	}
+	protected:
+		void OnDeviceUpdate(Devices::IDevice const& device) override;
+		void OnError(std::string const& message) override;
+		void OnStart() override;
+		void OnStop() override;
 
-	class NativeService;
-	public ref class ServiceCLR : public DeviceServiceInterface::IService
+	private:
+		gcroot<ServiceCLR^> m_managed;
+	};
+
+	public ref class ServiceCLR abstract : public DeviceServiceInterface::IDeviceServiceWrapper
 	{
 	public:
 		ServiceCLR();
-
-		// Inherited via IService
-		virtual event DeviceChangeEvent^ DeviceUpdatedSignal;
-		virtual event MessageEvent^ ErrorSignal;
-		virtual event Action^ StartSignal;
-		virtual event Action^ StopSignal;
 
 		virtual void Start();
 		virtual void Stop();
 		virtual bool IsRunning();
 
-	internal:
-		void OnDeviceUpdate(Devices::IDevice const& device)
-		{
-			DeviceUpdatedSignal(
-				MarshelDevice(device)
-			);
-		}
-
-		void OnError(std::string const& message)
-		{
-			ErrorSignal(
-				MarshelString(message)
-			);
-		}
-
-		void OnStart()
-		{
-			StartSignal();
-		}
-
-		void OnStop()
-		{
-			StopSignal();
-		}
+		virtual void OnDeviceUpdate(DeviceServiceInterface::Device^ device) = 0;
+		virtual void OnError(System::String^ device) = 0;
+		virtual void OnStart() = 0;
+		virtual void OnStop() = 0;
 
 	private:
-		NativeService* m_native;
-
-
+		NativeServiceWrapper* m_native{ nullptr };
 	};
 
-	class NativeService : public DeviceService::Service
-	{
-	public:
-		NativeService(ServiceCLR^ managed) : m_managed{ managed }
-		{
-		}
 
-	protected:
-		virtual void OnDeviceUpdate(Devices::IDevice const& device)
-		{
-			m_managed->OnDeviceUpdate(device);
-		}
 
-		virtual void OnError(std::string const& message)
-		{
-			m_managed->OnError(message);
-		}
-
-		virtual void OnStart()
-		{
-			m_managed->OnStart();
-		}
-
-		virtual void OnStop()
-		{
-			m_managed->OnStop();
-		}
-
-	private:
-		gcroot<ServiceCLR^> m_managed;
-	};
 };

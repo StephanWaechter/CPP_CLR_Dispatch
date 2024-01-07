@@ -13,12 +13,11 @@ namespace DeviceServiceInterface
     {
         void Start();
         void Stop();
-
         bool IsRunning();
-
-        event Action StartSignal;
-        event Action StopSignal;
+        
         event DeviceChangeEvent DeviceUpdatedSignal;
         event MessageEvent ErrorSignal;
+        event Action StartSignal;
+        event Action StopSignal;
     }
 }
