@@ -14,14 +14,43 @@ namespace CSharpCMakeTestGUI.ViewModels
 {
     partial class MainViewModel : ObservableObject
     {
+        public IService Service { get; }
         public MainViewModel(IService service)
         {
             Service = service;
             Service.DeviceUpdatedSignal += OnDeviceUpdated;
             Service.ErrorSignal += OnError;
+            Service.StartSignal += OnStart;
+            Service.StopSignal += OnStop;
 
             StartCommand = new RelayCommand(OnStartCommand);
             StopCommand = new RelayCommand(OnStopCommand);
+
+            UpdateRunning();
+        }
+
+        [ObservableProperty]
+        bool isRunning;
+
+        [ObservableProperty]
+        bool isNotRunning;
+
+        private void OnStart()
+        {
+            Message.Add("Start");
+            UpdateRunning();
+        }
+
+        private void OnStop()
+        {
+            Message.Add("Stop");
+            UpdateRunning();
+        }
+
+        private void UpdateRunning()
+        {
+            IsRunning = Service.IsRunning();
+            IsNotRunning = !Service.IsRunning();
         }
 
         public ObservableCollection<String> Message { get; } = new();
@@ -49,6 +78,6 @@ namespace CSharpCMakeTestGUI.ViewModels
 
 
 
-        public IService Service { get; }
+
     }
 }

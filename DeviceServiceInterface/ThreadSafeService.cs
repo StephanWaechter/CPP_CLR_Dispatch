@@ -14,6 +14,20 @@ namespace DeviceServiceInterface
             service = _service;
             service.DeviceUpdatedSignal += Service_DeviceUpdatedSignal;
             service.ErrorSignal += Service_ErrorSignal;
+
+            service.StartSignal += ThreadSafeService_StartSignal;
+            service.StopSignal += ThreadSafeService_StopSignal;
+        }
+
+
+        private void ThreadSafeService_StartSignal()
+        {
+            StartSignal.Invoke();
+        }
+
+        private void ThreadSafeService_StopSignal()
+        {
+            StopSignal.Invoke();
         }
 
         private void Service_DeviceUpdatedSignal(Device device)
@@ -35,6 +49,8 @@ namespace DeviceServiceInterface
 
         public event DeviceChangeEvent DeviceUpdatedSignal = null!;
         public event MessageEvent ErrorSignal = null!;
+        public event Action StartSignal = null!;
+        public event Action StopSignal = null!;
 
         public void Start()
         {
@@ -44,6 +60,11 @@ namespace DeviceServiceInterface
         public void Stop()
         {
             service.Stop();
+        }
+
+        public bool IsRunning()
+        {
+            return service.IsRunning();
         }
     }
 }

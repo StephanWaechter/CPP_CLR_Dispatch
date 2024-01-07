@@ -20,8 +20,9 @@ namespace DeviceService
 	void Service::Start()
 	{
 		using namespace std::chrono_literals;
-		Init();
 		m_Running = true;
+		OnStart();
+		Init();
 		m_Thread = std::thread(
 			[this] 
 			{
@@ -35,16 +36,21 @@ namespace DeviceService
 	}
 
 	void Service::Stop()
-	{
+	{	
 		m_Running = false;
-		if(m_Running != false)
-		{
-			m_Thread.join();
-		}
+		m_Thread.join();
+		OnStop();
+
 	}
 
-	void Service::Init()
-	{
+    bool Service::IsRunning() const
+    {
+        return m_Running;
+		
+    }
+
+    void Service::Init()
+    {
 		for (auto& d : m_Devices)
 		{
 			d->Init();

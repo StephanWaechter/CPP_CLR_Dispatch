@@ -28,11 +28,14 @@ namespace DeviceServiceCLR
 		ServiceCLR();
 
 		// Inherited via IService
-		virtual event DeviceServiceInterface::DeviceChangeEvent^ DeviceUpdatedSignal;
-		virtual event DeviceServiceInterface::MessageEvent^ ErrorSignal;
+		virtual event DeviceChangeEvent^ DeviceUpdatedSignal;
+		virtual event MessageEvent^ ErrorSignal;
+		virtual event Action^ StartSignal;
+		virtual event Action^ StopSignal;
 
 		virtual void Start();
 		virtual void Stop();
+		virtual bool IsRunning();
 
 	internal:
 		void OnDeviceUpdate(Devices::IDevice const& device)
@@ -47,6 +50,16 @@ namespace DeviceServiceCLR
 			ErrorSignal(
 				MarshelString(message)
 			);
+		}
+
+		void OnStart()
+		{
+			StartSignal();
+		}
+
+		void OnStop()
+		{
+			StopSignal();
 		}
 
 	private:
@@ -71,6 +84,16 @@ namespace DeviceServiceCLR
 		virtual void OnError(std::string const& message)
 		{
 			m_managed->OnError(message);
+		}
+
+		virtual void OnStart()
+		{
+			m_managed->OnStart();
+		}
+
+		virtual void OnStop()
+		{
+			m_managed->OnStop();
 		}
 
 	private:

@@ -22,8 +22,11 @@ namespace DeviceService
 
 		void Start();
 		void Stop();
+		bool IsRunning() const;
 
 	protected:
+		virtual void OnStart() = 0;
+		virtual void OnStop() = 0;
 		virtual void OnDeviceUpdate(Devices::IDevice const& device) = 0;
 		virtual void OnError(std::string const& message) = 0;
 

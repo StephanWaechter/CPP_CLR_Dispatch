@@ -21,4 +21,9 @@ namespace DeviceServiceCLR
 	{
 		m_native->Stop();
 	}
+
+	bool ServiceCLR::IsRunning()
+	{
+		return m_native->IsRunning();
+	}
 }

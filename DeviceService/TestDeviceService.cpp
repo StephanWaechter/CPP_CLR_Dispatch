@@ -18,6 +18,14 @@ namespace
         {
             std::cout << message << "\n";
         }
+        void OnStart()
+        {
+            std::cout <<  "Start\n";
+        }
+        void OnStop()
+        {
+            std::cout << "Stop\n";
+        }
     };
 }
 
