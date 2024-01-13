@@ -63,93 +63,81 @@
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\DeviceService\DeviceService.props" />
+    <Import Project="..\DeviceLibrary\DeviceLibrary.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\DeviceService\DeviceService.props" />
+    <Import Project="..\DeviceLibrary\DeviceLibrary.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\DeviceService\DeviceService.props" />
+    <Import Project="..\DeviceLibrary\DeviceLibrary.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\DeviceService\DeviceService.props" />
+    <Import Project="..\DeviceLibrary\DeviceLibrary.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup />
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level2</WarningLevel>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir)inc;$(SolutionDir)nlohmann\inc;$(SolutionDir)\DeviceLibrary\inc;$(SolutionDir)\DeviceService\inc</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
-    <Link>
-      <AdditionalDependencies>DeviceService.lib; DeviceLibrary.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(OutputPath);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-    </Link>
+    <Link />
     <PreBuildEvent>
       <Command>
       </Command>
     </PreBuildEvent>
-    <ProjectReference>
-      <LinkLibraryDependencies>false</LinkLibraryDependencies>
-    </ProjectReference>
+    <ProjectReference />
+    <Link />
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level2</WarningLevel>
       <PreprocessorDefinitions>WIN32;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir)inc;$(SolutionDir)nlohmann\inc;$(SolutionDir)\DeviceLibrary\inc;$(SolutionDir)\DeviceService\inc</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
-    <Link>
-      <AdditionalDependencies>DeviceService.lib; DeviceLibrary.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(OutputPath);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-    </Link>
+    <Link />
     <PreBuildEvent>
       <Command>
       </Command>
     </PreBuildEvent>
-    <ProjectReference>
-      <LinkLibraryDependencies>false</LinkLibraryDependencies>
-    </ProjectReference>
+    <ProjectReference />
+    <Link />
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level2</WarningLevel>
       <PreprocessorDefinitions>WIN32;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir)inc;$(SolutionDir)nlohmann\inc;$(SolutionDir)\DeviceLibrary\inc;$(SolutionDir)\DeviceService\inc</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
-    <Link>
-      <AdditionalDependencies>DeviceService.lib; DeviceLibrary.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(OutputPath);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-    </Link>
+    <Link />
     <PreBuildEvent>
       <Command>
       </Command>
     </PreBuildEvent>
-    <ProjectReference>
-      <LinkLibraryDependencies>false</LinkLibraryDependencies>
-    </ProjectReference>
+    <ProjectReference />
+    <Link />
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level2</WarningLevel>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir)inc;$(SolutionDir)nlohmann\inc;$(SolutionDir)\DeviceLibrary\inc;$(SolutionDir)\DeviceService\inc</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
-    <Link>
-      <AdditionalDependencies>DeviceService.lib; DeviceLibrary.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(OutputPath);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-    </Link>
+    <Link />
     <PreBuildEvent>
       <Command>
       </Command>
     </PreBuildEvent>
-    <ProjectReference>
-      <LinkLibraryDependencies>false</LinkLibraryDependencies>
-    </ProjectReference>
+    <ProjectReference />
+    <Link />
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ServiceCLR.cpp" />
@@ -158,6 +146,9 @@
     <ClInclude Include="ServiceCLR.h" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DeviceLibrary\DeviceLibrary.vcxproj">
+      <Project>{3cd324a8-8766-4729-8eba-4cf06a7f2191}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\DeviceServiceCSharp\DeviceServiceCSharp.csproj">
       <Project>{80a66988-03de-4998-ab6a-52ab91634fce}</Project>
     </ProjectReference>
