@@ -30,8 +30,14 @@ namespace Devices
 		std::cout << "Terminate: " << m_data << "\n";
 	}
 
-	std::any Type1Device::Serialize() const
+	void Type1Device::Serialize(Serialize::Map& serializer) const
 	{
-		return Type1DeviceData{ m_data };
+		serializer.set("Type", Tag);
+		serializer.set("Data", m_data);
+	}
+
+	Type1Device Type1Device::Deserialize(Serialize::Deserializer const& deserializer)
+	{
+		return Type1Device(deserializer.get("Data"));
 	}
 }

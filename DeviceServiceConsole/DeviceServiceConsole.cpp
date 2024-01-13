@@ -5,6 +5,8 @@
 #include <Devices/Type1Device.h>
 #include <Devices/Type2Device.h>
 #include <Devices/Serialize.h>
+#include <Serialize/JsonSerializer.h>
+
 #include <DeviceService/Service.h>
 #include <thread>
 
@@ -42,9 +44,10 @@ int main()
     devices.push_back(std::make_unique<Type2Device>("Device2"));
     devices.push_back(std::make_unique<Type2Device>("Device3"));
     
-    auto json = Serialize(devices);
-    std::cout << json.dump(2) << "\n";
-
+    auto serializer = Serialize::JsonMapSerializer();
+    Devices::Serialize(serializer, devices);
+    std::cout << serializer.Json().dump(2) << "\n";
+    /*
     auto new_devices = Deserilize(json);
     TestService service;
     for (auto& device : new_devices)
@@ -55,10 +58,12 @@ int main()
     }
     new_devices.clear();
 
+
     service.AddDevice(std::make_unique<Type2Device>("Device2"));
     service.Start();
     std::this_thread::sleep_for(5s);
     service.Stop();
+    */
     return 0;
 }
 

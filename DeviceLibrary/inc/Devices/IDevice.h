@@ -1,4 +1,5 @@
 #pragma once
+#include <Serialize/Interface.h>
 #include <string>
 #include <memory>
 #include <vector>
@@ -6,7 +7,7 @@
 
 namespace Devices
 {
-	class IDevice
+	class IDevice : public Serialize::Serializable
 	{
 	public:
 		using uptr = std::unique_ptr<IDevice>;
@@ -19,17 +20,5 @@ namespace Devices
 		virtual void Init() = 0;
 		virtual Result Run() = 0;
 		virtual void Terminate() = 0;
-
-		virtual std::any Serialize() const = 0;
 	};
-
-	inline std::vector<IDevice*> to_ref(std::vector<IDevice::uptr>& devices)
-	{
-		std::vector<IDevice*> ptr_to;
-		for (auto& device : devices)
-		{
-			ptr_to.push_back(device.get());
-		}
-		return ptr_to;
-	}
 }

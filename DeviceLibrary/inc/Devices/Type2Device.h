@@ -50,7 +50,9 @@ namespace Devices
 		Result Run() override;
 		void Terminate() override;
 
-		std::any Serialize() const override;
+		static constexpr const char* Tag = "Type2Device";
+		void Serialize(Serialize::Map& serializer) const override;
+		static Type2Device Deserialize(Serialize::Deserializer const& deserializer);
 	private:
 		std::string m_data;
 		Counter Counter{3};
