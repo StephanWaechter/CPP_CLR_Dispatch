@@ -18,7 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DeviceServiceCLR\DeviceServiceCLR.vcxproj" />
-    <ProjectReference Include="..\DeviceServiceInterface\DeviceServiceInterface.csproj" />
+    <ProjectReference Include="..\DeviceServiceCSharp\DeviceServiceCSharp.csproj" />
   </ItemGroup>
 
 </Project>

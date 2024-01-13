@@ -25,6 +25,7 @@ namespace DeviceServiceCLR
 
 	public ref class ServiceCLR abstract
 	{
+
 	public:
 		ServiceCLR();
 

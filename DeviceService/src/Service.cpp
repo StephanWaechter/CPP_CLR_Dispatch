@@ -7,12 +7,12 @@
 
 namespace DeviceService
 {
-    void Service::AddDevice(pIDevice device)
+    void Service::AddDevice(Devices::IDevice::uptr device)
     {
 		m_Devices.push_back(std::move(device));
     }
 
-    void Service::RemoveDevice(pIDevice device)
+    void Service::RemoveDevice(Devices::IDevice::uptr device)
     {
 
     }

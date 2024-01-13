@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace DeviceServiceInterface
 {
     public delegate void DeviceChangeEvent(Device device);
-    public delegate void MessageEvent(String device);
+    public delegate void MessageEvent(String message);
 
     public interface IService
     {

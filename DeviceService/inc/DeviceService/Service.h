@@ -8,7 +8,6 @@ namespace DeviceService
 	class Service
 	{
 	public:
-		using pIDevice = std::unique_ptr<Devices::IDevice>;
 		template<typename DevcieType, typename... Args>
 		void EmplaceDevice(Args... args)
 		{
@@ -17,8 +16,8 @@ namespace DeviceService
 			);
 		};
 
-		void AddDevice(pIDevice device);
-		void RemoveDevice(pIDevice device);
+		void AddDevice(Devices::IDevice::uptr device);
+		void RemoveDevice(Devices::IDevice::uptr device);
 
 		void Start();
 		void Stop();
@@ -37,6 +36,6 @@ namespace DeviceService
 
 		bool m_Running{false};
 		std::thread m_Thread;
-		std::vector<pIDevice> m_Devices;
+		std::vector<Devices::IDevice::uptr> m_Devices;
 	};
 }

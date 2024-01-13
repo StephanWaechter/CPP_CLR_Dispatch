@@ -5,6 +5,11 @@
 
 namespace Devices
 {
+	struct Type2DeviceData
+	{
+		std::string Name;
+	};
+
 	class Type2Device : public IDevice
 	{
 		class Counter
@@ -37,7 +42,7 @@ namespace Devices
 		};
 
 	public:
-		Type2Device(std::string data) : Data{ data }
+		Type2Device(std::string data) : m_data{ data }
 		{}
 
 		std::string Name() const override;
@@ -45,8 +50,9 @@ namespace Devices
 		Result Run() override;
 		void Terminate() override;
 
+		std::any Serialize() const override;
 	private:
-		std::string Data;
+		std::string m_data;
 		Counter Counter{3};
 	};
 }

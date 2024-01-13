@@ -8,7 +8,6 @@ using CommunityToolkit.Mvvm.Collections;
 using CommunityToolkit.Mvvm.Input;
 using DeviceServiceInterface;
 using System.Collections.ObjectModel;
-using System.Windows;
 
 namespace CSharpCMakeTestGUI.ViewModels
 {
