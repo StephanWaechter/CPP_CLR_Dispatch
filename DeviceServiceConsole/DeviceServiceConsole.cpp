@@ -5,14 +5,16 @@
 #include <Devices/Type1Device.h>
 #include <Devices/Type2Device.h>
 #include <Devices/Serialize.h>
-#include <Serialize/JsonSerializer.h>
-
 #include <DeviceService/Service.h>
+#include <nlohmann/json.hpp>
+
 #include <thread>
 
 using namespace Devices;
 using namespace DeviceService;
 using namespace std::chrono_literals;
+
+using json = nlohmann::json;
 
 namespace
 {
@@ -37,33 +39,52 @@ namespace
     };
 }
 
+namespace Devices
+{
+    void to_json(json& j, const IDevice::Serialized& d) {
+        j = json{ {"Type", d.Type}, {"Props", d.Props} };
+    }
+
+    void from_json(const json& j, IDevice::Serialized& d) {
+        j.at("Type").get_to(d.Type);
+        j.at("Props").get_to(d.Props);
+    }
+
+    void to_json(json& j, const SerializedDeviceList& d) {
+        j = json{ {"Version", d.Version}, {"Devices", d.Devices} };
+    }
+
+    void from_json(const json& j, SerializedDeviceList& d) {
+        j.at("Version").get_to(d.Version);
+        j.at("Devices").get_to(d.Devices);
+    }
+}
+
 int main()
 {
-    std::vector<IDevice::uptr> devices;
+    IDevice::vector devices;
     devices.push_back(std::make_unique<Type1Device>("Device1"));
     devices.push_back(std::make_unique<Type2Device>("Device2"));
-    devices.push_back(std::make_unique<Type2Device>("Device3"));
+    devices.push_back(std::make_unique<Type2Device>("Device3"));    
+
+    auto serializedData = Devices::Serialize(devices);
+    json js = serializedData;
+
+    std::cout << js.dump(2) << "\n";
     
-    auto serializer = Serialize::JsonMapSerializer();
-    Devices::Serialize(serializer, devices);
-    std::cout << serializer.Json().dump(2) << "\n";
-    /*
-    auto new_devices = Deserilize(json);
     TestService service;
-    for (auto& device : new_devices)
+    auto deserializedData = js.get<SerializedDeviceList>();
+    for (auto& device : Devices::Deserialize(deserializedData))
     {
         service.AddDevice(
             std::move(device)
         );
     }
-    new_devices.clear();
 
-
-    service.AddDevice(std::make_unique<Type2Device>("Device2"));
     service.Start();
     std::this_thread::sleep_for(5s);
     service.Stop();
-    */
+
     return 0;
 }
 

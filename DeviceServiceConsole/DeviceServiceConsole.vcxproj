@@ -61,33 +61,25 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\DeviceService\DeviceService.props" />
     <Import Project="..\DeviceLibrary\DeviceLibrary.props" />
-    <Import Project="..\Serialize\Serializer.props" />
     <Import Project="..\nlohmann\nlohmann.props" />
-    <Import Project="..\DeviceJsonSerializer\JsonSerializer.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\DeviceLibrary\DeviceLibrary.props" />
     <Import Project="..\DeviceService\DeviceService.props" />
-    <Import Project="..\Serialize\Serializer.props" />
     <Import Project="..\nlohmann\nlohmann.props" />
-    <Import Project="..\DeviceJsonSerializer\JsonSerializer.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\DeviceLibrary\DeviceLibrary.props" />
     <Import Project="..\DeviceService\DeviceService.props" />
-    <Import Project="..\Serialize\Serializer.props" />
     <Import Project="..\nlohmann\nlohmann.props" />
-    <Import Project="..\DeviceJsonSerializer\JsonSerializer.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\DeviceLibrary\DeviceLibrary.props" />
     <Import Project="..\DeviceService\DeviceService.props" />
-    <Import Project="..\Serialize\Serializer.props" />
     <Import Project="..\nlohmann\nlohmann.props" />
-    <Import Project="..\DeviceJsonSerializer\JsonSerializer.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -154,9 +146,6 @@
     <ClCompile Include="DeviceServiceConsole.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DeviceJsonSerializer\DeviceJsonSerializer.vcxproj">
-      <Project>{f5268538-366e-4b4e-bc8c-c9618242abb8}</Project>
-    </ProjectReference>
     <ProjectReference Include="..\DeviceLibrary\DeviceLibrary.vcxproj">
       <Project>{3cd324a8-8766-4729-8eba-4cf06a7f2191}</Project>
     </ProjectReference>

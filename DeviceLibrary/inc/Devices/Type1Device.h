@@ -1,13 +1,8 @@
 #pragma once
 #include "IDevice.h"
-#include <string>
 
 namespace Devices
 {
-	struct Type1DeviceData
-	{
-		std::string Name;
-	};
 
 	class Type1Device : public IDevice
 	{
@@ -20,9 +15,8 @@ namespace Devices
 		Result Run() override;
 		void Terminate() override;
 
-		static constexpr const char* Tag = "Type1Device";
-		void Serialize(Serialize::Map& serializer) const override;
-		static Type1Device Deserialize(Serialize::Deserializer const& deserializer);
+		Serialized Serialize() const override;
+		static std::unique_ptr<Type1Device> Deserialize(properties const& map);
 	private:
 		std::string m_data;
 	};

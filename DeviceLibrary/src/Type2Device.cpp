@@ -34,14 +34,21 @@ namespace Devices
 		std::cout << "Terminate: " << m_data << Counter << "\n";
 	}
 
-	void Type2Device::Serialize(Serialize::Map& serializer) const
+	IDevice::Serialized Type2Device::Serialize() const
 	{
-		serializer.set("Type", Tag);
-		serializer.set("Data", m_data);
+		Serialized data;
+		data.Type = Type2Tag;
+		data.Props["Data"] = m_data;
+		return data;
 	}
 
-	Type2Device Type2Device::Deserialize(Serialize::Deserializer const& deserializer)
+	std::unique_ptr<Type2Device> Type2Device::Deserialize(properties const& props)
 	{
-		return Type2Device(deserializer.get("Data"));
+		if (auto data = props.find("Data"); data != props.end())
+		{
+			std::string d = props.at("Data");
+			return std::make_unique<Type2Device>(d);
+		}
+		return nullptr;	
 	}
 }

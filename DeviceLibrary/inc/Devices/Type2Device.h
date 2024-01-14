@@ -1,15 +1,9 @@
 #pragma once
 #include "IDevice.h"
-#include <string>
 #include <iostream>
 
 namespace Devices
 {
-	struct Type2DeviceData
-	{
-		std::string Name;
-	};
-
 	class Type2Device : public IDevice
 	{
 		class Counter
@@ -50,9 +44,8 @@ namespace Devices
 		Result Run() override;
 		void Terminate() override;
 
-		static constexpr const char* Tag = "Type2Device";
-		void Serialize(Serialize::Map& serializer) const override;
-		static Type2Device Deserialize(Serialize::Deserializer const& deserializer);
+		Serialized Serialize() const override;
+		static std::unique_ptr<Type2Device> Deserialize(properties const& map);
 	private:
 		std::string m_data;
 		Counter Counter{3};

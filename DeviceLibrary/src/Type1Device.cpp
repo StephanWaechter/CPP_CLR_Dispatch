@@ -1,4 +1,6 @@
 #include "Devices/Type1Device.h"
+#include "Devices/Serialize.h"
+
 #include <iostream>
 #include <sstream>
 namespace Devices
@@ -30,14 +32,21 @@ namespace Devices
 		std::cout << "Terminate: " << m_data << "\n";
 	}
 
-	void Type1Device::Serialize(Serialize::Map& serializer) const
+	IDevice::Serialized Type1Device::Serialize() const
 	{
-		serializer.set("Type", Tag);
-		serializer.set("Data", m_data);
+		Serialized device;
+		device.Type = Type1Tag;
+		device.Props["Data"] = m_data;
+		return device;
 	}
 
-	Type1Device Type1Device::Deserialize(Serialize::Deserializer const& deserializer)
+	std::unique_ptr<Type1Device> Type1Device::Deserialize(properties const& props)
 	{
-		return Type1Device(deserializer.get("Data"));
+		if (auto data = props.find("Data"); data != props.end())
+		{
+			std::string d = props.at("Data");
+			return std::make_unique<Type1Device>(d);
+		}
+		return nullptr;
 	}
 }
